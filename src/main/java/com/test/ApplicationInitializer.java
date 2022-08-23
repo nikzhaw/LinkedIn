@@ -13,8 +13,10 @@ public class ApplicationInitializer implements WebApplicationInitializer {
     public void onStartup(ServletContext servletContext) throws ServletException {
         // bootstrap dispatcherservlet
         AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
-
+        context.register(ApplicationConfig.class);
 
         ServletRegistration.Dynamic servletRegistration = servletContext.addServlet("mvc", new DispatcherServlet(context));
+        servletRegistration.setLoadOnStartup(1);
+        servletRegistration.addMapping("/");
     }
 }
